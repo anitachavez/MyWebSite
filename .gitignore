@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+test-results/
+playwright-report/
+.env*
+!.env.example
+*.tsbuildinfo
+artifacts/
+src/app/media-component-test/
