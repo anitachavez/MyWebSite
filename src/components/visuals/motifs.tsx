@@ -53,7 +53,6 @@ export function MechanicalMotif({ id }: { id: string }) {
         <text x="112" y="246">Ø</text>
         <text x="306" y="170">J2</text>
         <text x="360" y="72">EE</text>
-        <text x="14" y="18">MECHANISM · 01</text>
       </g>
     </svg>
   );
@@ -82,7 +81,6 @@ export function PlanetaryMotif({ id }: { id: string }) {
       <circle cx="366" cy="64" r="10" className="v-pulse" />
       <circle cx="366" cy="64" r="3.4" className="v-accent-fill" />
       <g className="v-labels">
-        <text x="14" y="18">TRAJECTORY · 02</text>
         <text x="332" y="92">TARGET</text>
         <text x="96" y="222">ORBIT</text>
       </g>
@@ -139,7 +137,6 @@ export function NetworkMotif({ id }: { id: string }) {
       <Particle path={`${id}-hot`} dur={8} tone="accent" r={2.4} />
       <Particle path={`${id}-alt`} dur={11} begin={4} tone="blue" r={2} />
       <g className="v-labels">
-        <text x="14" y="18">SYSTEM · 03</text>
         <text x="48" y="160">IN</text>
         <text x="340" y="154">OUT</text>
       </g>
@@ -186,7 +183,6 @@ export function SignalMotif({ id, receivers = 0 }: { id: string; receivers?: num
         </g>
       ))}
       <g className="v-labels">
-        <text x="14" y="18">TX · BROADCAST</text>
         <text x="62" y="232">SOURCE</text>
         {receivers > 0 && (
           <text x="318" y="232" className="is-accent">
@@ -221,7 +217,6 @@ export function CommsMotif({ id }: { id: string }) {
         </g>
       ))}
       <g className="v-labels">
-        <text x="14" y="18">LINK · OPEN</text>
         <text x="56" y="236">YOU</text>
         <text x="300" y="236" className="is-accent">
           ANA SOFÍA

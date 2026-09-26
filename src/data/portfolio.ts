@@ -236,7 +236,7 @@ const years = awards
 export const sections: SectionLink[] = [
   {
     href: "/about",
-    label: "About me",
+    label: "About",
     short: "About",
     description: `${profile.degree}, ${profile.university}. Languages and interests.`,
   },
@@ -263,7 +263,7 @@ export const sections: SectionLink[] = [
   },
   {
     href: "/media",
-    label: "Media & interviews",
+    label: "Media",
     short: "Media",
     description: media.headline ?? "Television and interviews.",
   },
@@ -275,7 +275,7 @@ export const sections: SectionLink[] = [
   },
   {
     href: "/leadership",
-    label: "Leadership & involvement",
+    label: "Leadership",
     short: "Leadership",
     description: leadership.map((l) => l.organization).join(" · "),
   },
@@ -289,14 +289,31 @@ export const sections: SectionLink[] = [
   },
 ];
 
-export const primaryNav = sections.filter((s) =>
-  ["/about", "/experience", "/projects", "/recognition", "/contact"].includes(
-    s.href,
-  ),
-);
-export const moreNav = sections.filter((s) =>
-  ["/media", "/competitions", "/leadership"].includes(s.href),
-);
+const byHref = (href: string) => sections.find((s) => s.href === href)!;
+
+// Research has no route of its own: it lives on /experience (#research).
+export const researchLink: SectionLink = {
+  href: "/experience#research",
+  label: "Research",
+  short: "Research",
+  description: research.map((r) => r.shortTitle ?? r.title).filter(Boolean).join(" · "),
+};
+
+// Header: Home plus four obvious destinations, everything else under "More".
+export const homeLink: SectionLink = {
+  href: "/",
+  label: "Home",
+  short: "Home",
+  description: "Back to the start.",
+};
+export const primaryNav = [
+  homeLink,
+  ...["/projects", "/experience", "/about", "/contact"].map(byHref),
+];
+export const moreNav = [
+  researchLink,
+  ...["/recognition", "/competitions", "/leadership", "/media"].map(byHref),
+];
 
 // Newest first; awards without a date go last, in their site.json order.
 export const sortedAwards = awards

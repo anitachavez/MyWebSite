@@ -35,7 +35,6 @@ export default function ExperiencePage() {
           return (
             <li key={e.id} className={`timeline-item ${i === 0 ? "is-primary" : ""}`} data-reveal>
               <div className="timeline-when">
-                <span className="tech-label">T-{String(i + 1).padStart(2, "0")}</span>
                 {(e.startDate || e.endDate) && (
                   <p className="timeline-dates">
                     {e.startDate}
@@ -79,7 +78,7 @@ export default function ExperiencePage() {
       </ol>
 
       {research.length > 0 && (
-        <section className="section research-list" aria-labelledby="research-title">
+        <section id="research" className="section research-list" aria-labelledby="research-title">
           <SectionHeading
             index="R"
             kicker="Research"

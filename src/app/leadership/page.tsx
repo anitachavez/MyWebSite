@@ -20,7 +20,7 @@ export default function LeadershipPage() {
         lead={leadership.map((l) => l.organization).join(" · ")}
       />
       <div className="leadership-list">
-        {leadership.map((l, i) => {
+        {leadership.map((l) => {
           // SheTalks' broadcast motif shows one receiver per television appearance.
           const tv = l.stats.find((s) => /television|tv/i.test(s.label));
           const receivers = tv ? (parseStat(tv.value)?.number ?? 0) : 0;
@@ -40,9 +40,7 @@ export default function LeadershipPage() {
               data-reveal
             >
               <div className="leader-body">
-                <p className="eyebrow">
-                  <span className="eyebrow-index">{String(i + 1).padStart(2, "0")}</span>
-                  {l.dates}
+                <p className="eyebrow">{l.dates}
                 </p>
                 <h2 id={`${l.id}-title`}>{l.organization}</h2>
                 {(l.role || l.chapter) && (
@@ -56,7 +54,7 @@ export default function LeadershipPage() {
               </div>
               <div className="leader-side">
                 <StatList stats={l.stats} variant="large" />
-                <VisualFrame code={`L-${String(i + 1).padStart(2, "0")}`} className="vframe-small">
+                <VisualFrame className="vframe-small">
                   {visual}
                 </VisualFrame>
               </div>

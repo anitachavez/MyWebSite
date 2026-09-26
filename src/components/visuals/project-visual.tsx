@@ -40,8 +40,8 @@ export function ProjectVisual({
   const render = bySlug[project.slug] ?? byCategory[project.category];
   return (
     <VisualFrame
-      code={projectCode(project)}
-      label={`FIG. ${String(projects.indexOf(project) + 1).padStart(2, "0")}`}
+      code={context === "detail" ? project.category : undefined}
+      note={context === "detail" ? "Conceptual illustration" : undefined}
       className={`vframe-project is-${context}`}
     >
       {render(id)}

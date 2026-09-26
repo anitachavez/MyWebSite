@@ -4,9 +4,9 @@
   --surface: #10182b;
   --surface-2: #131d34;
   --ink: #f1eef6;
-  --ink-soft: #d6d8e8;
-  --muted: #abb0c6;
-  --dim: #858ca8;
+  --ink-soft: #dcdeec;
+  --muted: #bcc1d6;
+  --dim: #9ea5bf;
   --line: #293149;
   --line-strong: #3a4262;
   --pink: #efa1c5;
@@ -134,7 +134,7 @@ svg {
 /* ---------- typography primitives ---------- */
 .eyebrow {
   display: block;
-  font: 10.5px/1.7 var(--mono);
+  font: 12px/1.7 var(--mono);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
@@ -148,7 +148,7 @@ svg {
   color: var(--dim);
 }
 .tech-label {
-  font: 9.5px/1.6 var(--mono);
+  font: 11.5px/1.6 var(--mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--dim);
@@ -192,10 +192,11 @@ svg {
   position: relative;
   min-height: 50px;
   padding: 14px 22px;
-  font-size: 12.5px;
+  font-size: 14px;
   letter-spacing: 0.01em;
   border: 1px solid #59617b;
   border-radius: 3px;
+  white-space: nowrap;
   transition:
     background 0.25s,
     transform 0.25s var(--ease),
@@ -211,9 +212,11 @@ svg {
 .button-primary:hover {
   background: var(--pink-light);
 }
+/* Level 2: secondary action. Brighter border so it reads as a button at rest. */
 .button-outline {
-  border-color: #44465f;
-  background: #ffffff03;
+  border-color: #6f7494;
+  background: #ffffff05;
+  color: var(--ink);
 }
 .button-outline:hover,
 .button-outline.is-copied {
@@ -242,19 +245,34 @@ svg {
 .button:active {
   transform: scale(0.97);
 }
+.button-large {
+  min-height: 54px;
+  padding: 15px 26px;
+  font-size: 15px;
+}
 .button-small {
   min-height: 44px;
   padding: 11px 15px;
   gap: 12px;
 }
+/* Level 3: tertiary action. Readable size, 44px hit area, visible underline. */
 .text-link {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 12.5px;
+  font-size: 15px;
   min-height: 44px;
   color: var(--ink-soft);
-  transition: color 0.2s;
+  text-decoration: underline;
+  text-decoration-color: #efa1c555;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  transition:
+    color 0.2s,
+    text-decoration-color 0.2s;
+}
+.text-link:hover {
+  text-decoration-color: var(--pink);
 }
 .text-link svg {
   transition: transform 0.25s var(--ease);
@@ -298,12 +316,21 @@ svg {
   letter-spacing: -0.03em;
   margin-top: 16px;
 }
+.section-heading.is-centered {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 56px;
+}
+.section-heading.is-centered .section-title {
+  max-width: 900px;
+}
 .section-heading-aside {
   max-width: 360px;
   flex-shrink: 0;
 }
 .section-heading-aside p {
-  font-size: 13.5px;
+  font-size: 15px;
   line-height: 1.7;
   color: var(--muted);
 }
@@ -313,13 +340,13 @@ svg {
 }
 
 .page-wrap {
-  padding-block: 56px 110px;
+  padding-block: 18px 84px;
   min-height: 65vh;
 }
 .page-hero {
   position: relative;
-  padding: 26px 0 56px;
-  margin-bottom: 56px;
+  padding: 26px 0 44px;
+  margin-bottom: 44px;
   border-bottom: 1px solid var(--line);
 }
 .page-hero::after {
@@ -356,7 +383,7 @@ svg {
   list-style: none;
 }
 .tag-list li {
-  font-size: 11.5px;
+  font-size: 12.5px;
   line-height: 1.4;
   padding: 6px 10px;
   border: 1px solid var(--line);
@@ -408,7 +435,7 @@ svg {
   border-radius: 50%;
 }
 .bullet-list.is-compact li {
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .fact-list > div {
@@ -419,14 +446,14 @@ svg {
   border-bottom: 1px dashed var(--line);
 }
 .fact-list dt {
-  font: 10px/1.8 var(--mono);
+  font: 12px/1.8 var(--mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--dim);
   flex-shrink: 0;
 }
 .fact-list dd {
-  font-size: 14px;
+  font-size: 15px;
   text-align: right;
   color: var(--ink);
 }
@@ -451,7 +478,7 @@ svg {
   white-space: nowrap;
 }
 .stat-label {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.45;
   color: var(--muted);
 }
@@ -467,7 +494,7 @@ svg {
   font-size: 26px;
 }
 .stat-card .stat-label {
-  font-size: 11px;
+  font-size: 12.5px;
 }
 .stat-large {
   display: grid;
@@ -483,7 +510,7 @@ svg {
   font-size: clamp(38px, 4vw, 56px);
 }
 .stat-large .stat-label {
-  font-size: 13px;
+  font-size: 14px;
   margin-top: 8px;
 }
 
@@ -516,7 +543,7 @@ svg {
     padding-block: 68px;
   }
   .page-wrap {
-    padding-block: 30px 80px;
+    padding-block: 10px 80px;
   }
   .page-hero {
     padding: 16px 0 38px;
@@ -533,10 +560,10 @@ svg {
     font-size: 15.5px;
   }
   .bullet-list li {
-    font-size: 14px;
+    font-size: 15px;
   }
   .fact-list dd {
-    font-size: 13px;
+    font-size: 14px;
   }
 }
 @media (max-width: 380px) {

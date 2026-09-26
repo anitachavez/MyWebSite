@@ -171,10 +171,8 @@ export function OrbitalSystem({
           <text x="8" y="-270">y</text>
           <text x="186" y="-150">z</text>
           <text x="10" y="18">0</text>
-          <text x="-282" y="-262">ORBITAL PLOT · 01</text>
           <path d="M62 0A62 62 0 0 0 54.7 -29.1" className="plot-angle" />
           <text x="68" y="-12" className="is-accent">θ = 28°</text>
-          <text x="-282" y="284">r = 80 · 160 · 240</text>
         </g>
       </svg>
       {caption && <p className="orbital-caption">{caption}</p>}

@@ -28,7 +28,6 @@ export default function ContactPage() {
         <div className="contact-channels">
           {contact.email && (
             <section className="channel is-primary" aria-labelledby="ch-email" data-reveal>
-              <p className="tech-label is-accent">CH-01</p>
               <h2 id="ch-email">Email</h2>
               <a className="channel-email" href={`mailto:${contact.email}`}>
                 {contact.email}
@@ -36,7 +35,7 @@ export default function ContactPage() {
               <CopyEmail email={contact.email} />
             </section>
           )}
-          {channels.map((c, i) => (
+          {channels.map((c) => (
             <a
               key={c.label}
               href={c.href}
@@ -45,7 +44,6 @@ export default function ContactPage() {
               className="channel"
               data-reveal
             >
-              <span className="tech-label">CH-{String(i + 2).padStart(2, "0")}</span>
               <span className="channel-name">{c.label}</span>
               <span className="channel-handle">{c.handle}</span>
               <ArrowUpRight size={20} aria-hidden="true" />
@@ -54,7 +52,7 @@ export default function ContactPage() {
           ))}
         </div>
         <div className="contact-visual" data-reveal>
-          <VisualFrame code="COMMS" label="LINK">
+          <VisualFrame>
             <CommsMotif id="contact-comms" />
           </VisualFrame>
         </div>

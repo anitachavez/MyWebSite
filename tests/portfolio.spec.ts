@@ -104,8 +104,8 @@ test("navigation supports keyboard and reduced motion", async ({
     ).toBeFocused();
     await page.getByRole("button", { name: "Open navigation" }).click();
     await page
-      .getByRole("navigation")
-      .getByRole("link", { name: "About me" })
+      .getByRole("navigation", { name: "Main navigation" })
+      .getByRole("link", { name: "About", exact: true })
       .click();
     await expect(page).toHaveURL(/about/);
     await expect(
@@ -160,8 +160,8 @@ test("compact widths and secondary navigation remain usable", async ({
     await page.getByRole("button", { name: "More", exact: true }).click();
   }
   await page
-    .getByRole("navigation")
-    .getByRole("link", { name: "Media & interviews", exact: true })
+    .getByRole("navigation", { name: "Main navigation" })
+    .getByRole("link", { name: "Media", exact: true })
     .filter({ visible: true })
     .click();
   await expect(page).toHaveURL(/\/media$/);

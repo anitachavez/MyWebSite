@@ -40,13 +40,12 @@ export default function Competitions() {
               data-reveal
             >
               <div className="competition-visual">
-                <VisualFrame code={`C-${String(i + 1).padStart(2, "0")}`} label={c.dates}>
+                <VisualFrame>
                   {render(`comp-${c.id}`)}
                 </VisualFrame>
               </div>
               <div className="competition-body">
                 <p className="eyebrow">
-                  <span className="eyebrow-index">{String(i + 1).padStart(2, "0")}</span>
                   {[c.dates, c.location].filter(Boolean).join(" · ")}
                 </p>
                 <h2 id={`${c.id}-title`}>{c.name}</h2>

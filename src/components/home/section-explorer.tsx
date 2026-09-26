@@ -9,7 +9,7 @@ import { ArrowUpRight } from "lucide-react";
 import type { SectionLink } from "@/data/portfolio";
 
 const RX = 40;
-const RY = 37;
+const RY = 36;
 
 // Node positions are fixed in advance (8 nodes, 45° apart) so server and client agree.
 const unit = [
@@ -67,7 +67,6 @@ export function SectionExplorer({
 
       <div className="explorer-center" aria-hidden="true">
         <span className="explorer-core" />
-        <span className="tech-label">{current ? current.short.toUpperCase() : "ORIGIN"}</span>
         <strong>{current ? current.short : centerTitle}</strong>
         <span className="explorer-center-text">
           {current ? current.description : centerSubtitle}
@@ -90,12 +89,10 @@ export function SectionExplorer({
               onBlur={() => setActive(null)}
             >
               <span className="explorer-dot" aria-hidden="true" />
-              <span className="explorer-text">
-                <span className="tech-label">{String(i + 1).padStart(2, "0")}</span>
+              <span className="explorer-title-row">
                 <span className="explorer-label">{n.short}</span>
-                <span className="explorer-desc">{n.description}</span>
+                <ArrowUpRight className="explorer-arrow" size={17} aria-hidden="true" />
               </span>
-              <ArrowUpRight className="explorer-arrow" size={15} aria-hidden="true" />
             </Link>
           </li>
         ))}

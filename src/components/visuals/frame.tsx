@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 export function VisualFrame({
   code,
   label,
-  note = "Conceptual illustration",
+  note,
   className = "",
   children,
 }: {

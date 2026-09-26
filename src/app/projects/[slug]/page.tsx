@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import {
   getCompetition,
   getExperience,
@@ -11,7 +11,7 @@ import {
 import { assetExists, availablePhotos } from "@/lib/assets";
 import { Gallery, PdfViewer, VideoPlayer } from "@/components/assets";
 import { FactList, StatList, TagList } from "@/components/ui/primitives";
-import { ProjectVisual, projectCode } from "@/components/visuals/project-visual";
+import { ProjectVisual } from "@/components/visuals/project-visual";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -63,19 +63,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const related = [
     exp && { href: "/experience", label: exp.organization ?? exp.shortName, kind: "Experience" },
     competition && { href: "/competitions", label: competition.name, kind: "Competition" },
-    researchItem && !exp && { href: "/experience#research-title", label: researchItem.shortTitle ?? researchItem.title, kind: "Research" },
+    researchItem && !exp && { href: "/experience#research", label: researchItem.shortTitle ?? researchItem.title, kind: "Research" },
   ].filter((r): r is { href: string; label: string; kind: string } => Boolean(r && r.label));
 
   return (
     <div className="page-wrap shell case-study">
-      <Link className="text-link back-link" href="/projects">
-        <ArrowLeft size={16} aria-hidden="true" />
-        All projects
-      </Link>
-
       <header className="case-header" data-reveal>
         <p className="eyebrow">
-          <span className="eyebrow-index">{projectCode(project)}</span>
           {project.category}
           {project.status && <span className="project-status">{project.status}</span>}
         </p>
@@ -186,15 +180,21 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </div>
       </div>
 
-      {next !== project && (
-        <Link className="next-project" href={`/projects/${next.slug}`}>
-          <div>
-            <span className="eyebrow">Next project · {projectCode(next)}</span>
-            <h2>{next.title}</h2>
-          </div>
-          <ArrowUpRight size={30} aria-hidden="true" />
+      <nav className="case-footer" aria-label="Project navigation">
+        <Link className="button button-outline button-large" href="/projects">
+          <ArrowLeft size={18} aria-hidden="true" />
+          All projects
         </Link>
-      )}
+        {next !== project && (
+          <Link className="next-project" href={`/projects/${next.slug}`}>
+            <div>
+              <span className="eyebrow">Next project</span>
+              <span className="next-project-title">{next.title}</span>
+            </div>
+            <ArrowRight size={28} aria-hidden="true" />
+          </Link>
+        )}
+      </nav>
     </div>
   );
 }

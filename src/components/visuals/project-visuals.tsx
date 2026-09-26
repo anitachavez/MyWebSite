@@ -65,7 +65,6 @@ export function HotCellVisual({ id }: VisualProps) {
           </text>
         ))}
         <text x="258" y="47">TOOLS · 7</text>
-        <text x="40" y="254">SHIELDED CELL · TOP VIEW</text>
         <text x="300" y="254" className="is-accent">
           UR10 × 4
         </text>
@@ -132,7 +131,6 @@ export function PathPlanningVisual({ id }: VisualProps) {
       <g className="v-labels">
         <text x="14" y="214">START</text>
         <text x="340" y="96">GOAL</text>
-        <text x="14" y="18">CANDIDATES · 5</text>
         <text x="290" y="254" className="is-accent">
           250 TRIALS
         </text>
@@ -190,7 +188,6 @@ export function SwerveVisual({ id }: VisualProps) {
         <text x="220" y="100" className="is-accent">
           ω
         </text>
-        <text x="40" y="254">SWERVE · TOP VIEW</text>
       </g>
     </svg>
   );
@@ -253,7 +250,6 @@ export function TransportVisual({ id }: VisualProps) {
           MEMBRANE
         </text>
         <text x="354" y="140">B</text>
-        <text x="14" y="252">TRANSPORT · SECTION</text>
       </g>
     </svg>
   );

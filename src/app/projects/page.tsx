@@ -23,7 +23,7 @@ export default function Projects() {
         items={projects.map((p) => ({
           key: p.slug,
           category: p.category,
-          node: <ProjectCard project={p} headingLevel="h2" />,
+          node: <ProjectCard project={p} headingLevel="h2" detail="full" />,
         }))}
       />
     </div>

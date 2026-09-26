@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { MotionController } from "@/components/motion/motion-controller";
 import { ScientificBackground } from "@/components/visuals/scientific-background";
-import { moreNav, primaryNav, profile } from "@/data/portfolio";
+import { moreNav, primaryNav, profile, projects, sections } from "@/data/portfolio";
 import { resumeHref } from "@/lib/assets";
 import "./globals.css";
 // Design system, in cascade order (motion last so reduced-motion rules win):
@@ -26,6 +27,12 @@ export const metadata: Metadata = {
   description: `${profile.degree} student at the ${profile.university}. ${profile.tagline}`,
 };
 
+const crumbLabels: Record<string, string> = {
+  ...Object.fromEntries(sections.map((s) => [s.href, s.short])),
+  "/resume": "Resume",
+  ...Object.fromEntries(projects.map((p) => [`/projects/${p.slug}`, p.title])),
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -38,7 +45,10 @@ export default function RootLayout({
         <ScientificBackground />
         <SiteHeader primary={primaryNav} more={moreNav} resumeHref={resumeHref()} />
         <MotionController />
-        <main id="main">{children}</main>
+        <main id="main">
+          <Breadcrumbs labels={crumbLabels} />
+          {children}
+        </main>
         <SiteFooter />
       </body>
     </html>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import type { Stat } from "@/data/portfolio";
 import { StatCounter } from "@/components/motion/stat-counter";
 
@@ -27,29 +27,36 @@ export function SectionHeading({
   title,
   aside,
   link,
+  align = "start",
   as: Tag = "h2",
 }: {
   index?: string;
   kicker: string;
   title: ReactNode;
   aside?: ReactNode;
-  link?: { href: string; label: string };
+  link?: { href: string; label: string; button?: boolean };
+  align?: "start" | "center";
   as?: "h1" | "h2";
 }) {
   return (
-    <header className="section-heading" data-reveal>
+    <header className={`section-heading ${align === "center" ? "is-centered" : ""}`} data-reveal>
       <div className="section-heading-main">
-        <p className="eyebrow">
-          {index && <span className="eyebrow-index">{index}</span>}
-          {kicker}
-        </p>
+        {kicker && (
+          <p className="eyebrow">
+            {index && <span className="eyebrow-index">{index}</span>}
+            {kicker}
+          </p>
+        )}
         <Tag className="section-title">{title}</Tag>
       </div>
       {(aside || link) && (
         <div className="section-heading-aside reveal-late">
           {aside && <p>{aside}</p>}
           {link && (
-            <Link href={link.href} className="text-link">
+            <Link
+              href={link.href}
+              className={link.button ? "button button-outline orbit-button" : "text-link section-link"}
+            >
               {link.label}
               <ArrowUpRight size={16} aria-hidden="true" />
             </Link>
@@ -163,5 +170,31 @@ export function FactList({
         </div>
       ))}
     </dl>
+  );
+}
+
+// Large, unmistakable navigation action ("View all projects →").
+export function CtaLink({
+  href,
+  children,
+  variant = "outline",
+}: {
+  href: string;
+  children: ReactNode;
+  variant?: "primary" | "outline";
+}) {
+  return (
+    <Link href={href} className={`button button-large button-${variant} orbit-button cta-link`}>
+      {children}
+      <ArrowRight size={18} aria-hidden="true" />
+    </Link>
+  );
+}
+
+export function CtaRow({ children }: { children: ReactNode }) {
+  return (
+    <div className="cta-row" data-reveal>
+      {children}
+    </div>
   );
 }

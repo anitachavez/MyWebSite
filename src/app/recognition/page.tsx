@@ -15,7 +15,6 @@ export default function Recognition() {
     else groups.push({ year, items: [award] });
   }
   const years = groups.map((g) => g.year).filter(Boolean);
-  const logNumber = new Map(sortedAwards.map((a, i) => [a, i + 1]));
   return (
     <div className="page-wrap shell page-recognition">
       <PageHero
@@ -40,7 +39,6 @@ export default function Recognition() {
                 return (
                   <li key={a.title} className="log-entry">
                     <span className="log-node" aria-hidden="true" />
-                    <span className="tech-label">LOG {String(logNumber.get(a)).padStart(2, "0")}</span>
                     <h3>{a.title}</h3>
                     {meta && <p className="log-meta">{meta}</p>}
                     {a.description && <p className="log-description">{a.description}</p>}

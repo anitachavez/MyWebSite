@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowUp, ArrowUpRight } from "lucide-react";
-import { contact, profile, sections } from "@/data/portfolio";
+import { contact, homeLink, profile, sections } from "@/data/portfolio";
 import { resumeHref } from "@/lib/assets";
 
 export function SiteFooter() {
@@ -20,28 +20,21 @@ export function SiteFooter() {
             <p className="footer-tagline">{profile.tagline}</p>
           </div>
           <nav className="footer-index" aria-label="Site index">
-            <p className="eyebrow">Mission index</p>
+            <p className="eyebrow">Explore</p>
             <ol>
-              {sections.map((s, i) => (
+              {[homeLink, ...sections].map((s) => (
                 <li key={s.href}>
-                  <Link href={s.href}>
-                    <span className="tech-label">{String(i + 1).padStart(2, "0")}</span>
-                    {s.short}
-                  </Link>
+                  <Link href={s.href}>{s.short}</Link>
                 </li>
               ))}
               <li>
                 {resume ? (
                   <a href={resume} target="_blank" rel="noopener noreferrer">
-                    <span className="tech-label">{String(sections.length + 1).padStart(2, "0")}</span>
                     Resume
                     <span className="sr-only">(PDF, opens in a new tab)</span>
                   </a>
                 ) : (
-                  <Link href="/resume">
-                    <span className="tech-label">{String(sections.length + 1).padStart(2, "0")}</span>
-                    Resume
-                  </Link>
+                  <Link href="/resume">Resume</Link>
                 )}
               </li>
             </ol>

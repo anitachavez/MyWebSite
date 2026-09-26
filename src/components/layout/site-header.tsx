@@ -88,7 +88,7 @@ export function SiteHeader({
   return (
     <header className={`header-wrap ${scrolled ? "is-scrolled" : ""} ${open ? "menu-open" : ""}`}>
       <div className="site-header shell">
-        <Link href="/" className="wordmark" aria-label="Ana Sofía, home" onClick={close}>
+        <Link href="/" className="wordmark" aria-label="Home: Ana Sofía Chávez Salas" onClick={close}>
           <span className="wordmark-mark" aria-hidden="true">
             as
             <span className="brand-orbit" />
@@ -145,16 +145,13 @@ export function SiteHeader({
                 <ChevronDown size={13} aria-hidden="true" />
               </button>
               <div id="more-links" className="more-links" hidden={!moreOpen}>
-                {more.map((item, i) => (
+                {more.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     onClick={close}
                     aria-current={isCurrent(item.href) ? "page" : undefined}
                   >
-                    <span className="tech-label" aria-hidden="true">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
                     <span className="more-text">
                       {item.label}
                       <small aria-hidden="true">{item.description}</small>
