@@ -1,0 +1,899 @@
+/* ---------- global scientific background ---------- */
+.sci-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.sci-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(10px);
+}
+.glow-a {
+  width: 70vmax;
+  height: 70vmax;
+  right: -24vmax;
+  top: -34vmax;
+  background: radial-gradient(circle, #52244136 0%, #52244110 40%, transparent 68%);
+}
+.glow-b {
+  width: 60vmax;
+  height: 60vmax;
+  left: -26vmax;
+  bottom: -30vmax;
+  background: radial-gradient(circle, #1d2c5a3a 0%, #1d2c5a12 42%, transparent 70%);
+}
+.sci-layer {
+  position: absolute;
+  inset: -3%;
+  width: 106%;
+  height: 106%;
+  transition: transform 1.2s var(--ease);
+}
+.layer-far {
+  transform: translate3d(calc(var(--px) * -4px), calc(var(--py) * -3px), 0);
+}
+.layer-mid {
+  transform: translate3d(calc(var(--px) * -10px), calc(var(--py) * -7px), 0);
+}
+.layer-near {
+  transform: translate3d(calc(var(--px) * -18px), calc(var(--py) * -12px), 0);
+}
+.sci-star {
+  fill: #dfe5fb;
+}
+.sci-star.twinkle {
+  animation: twinkle 7s ease-in-out infinite;
+}
+.sci-grid-line {
+  fill: none;
+  stroke: #9fb4e8;
+  stroke-opacity: 0.16;
+  stroke-width: 0.6;
+}
+.sci-arcs ellipse {
+  fill: none;
+  stroke: #c9d3f5;
+  stroke-opacity: 0.05;
+  stroke-width: 1;
+}
+.sci-trajectory {
+  fill: none;
+  stroke: var(--pink);
+  stroke-opacity: 0.1;
+  stroke-width: 1;
+  stroke-dasharray: 2 8;
+}
+.sci-comet {
+  fill: var(--pink);
+  opacity: 0.55;
+}
+.sci-cross {
+  stroke: #c9d3f5;
+  stroke-opacity: 0.3;
+  stroke-width: 1;
+}
+
+/* ---------- orbital system (hero / about) ---------- */
+.orbital-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+}
+.orbital-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transition: transform 1.4s var(--ease);
+}
+.layer-back {
+  z-index: 0;
+  transform: translate3d(calc(var(--px) * -8px), calc(var(--py) * -6px), 0);
+}
+.layer-front {
+  z-index: 2;
+  transform: translate3d(calc(var(--px) * 10px), calc(var(--py) * 8px), 0);
+}
+/* Phase 2 portrait slot: a circular, masked area inside the orbits. */
+.orbital-portrait {
+  position: absolute;
+  inset: 21%;
+  z-index: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-mask-image: radial-gradient(circle, #000 52%, transparent 71%);
+  mask-image: radial-gradient(circle, #000 52%, transparent 71%);
+}
+.orbital-portrait:empty {
+  background: radial-gradient(circle at 50% 46%, #62294830 0%, #1d2c5a20 40%, transparent 70%);
+}
+.orbital-portrait img {
+  object-fit: cover;
+}
+.plot-ring {
+  fill: none;
+  stroke: var(--blue);
+  stroke-opacity: 0.12;
+  stroke-dasharray: 2 6;
+}
+.plot-axis {
+  fill: none;
+  stroke: #c9d3f5;
+  stroke-opacity: 0.16;
+  stroke-width: 0.8;
+}
+.plot-axis.is-z {
+  stroke-dasharray: 4 6;
+}
+.plot-tick {
+  stroke: #c9d3f5;
+  stroke-opacity: 0.35;
+  stroke-width: 0.8;
+}
+.plot-angle {
+  fill: none;
+  stroke: var(--pink);
+  stroke-opacity: 0.7;
+}
+.orbit-precess {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: precess 320s linear infinite;
+}
+.orbit-path {
+  fill: none;
+  stroke: #c9d3f5;
+  stroke-opacity: 0.3;
+  stroke-width: 0.9;
+}
+.orbit-path.is-dashed {
+  stroke-dasharray: 3 7;
+  stroke-opacity: 0.22;
+}
+.orbit-trail {
+  fill: none;
+  stroke: var(--pink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 14 86;
+  opacity: 0.7;
+  animation: trail linear infinite;
+}
+.orbit-core-glow {
+  animation: breathe 7s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.nucleus-ring {
+  fill: #080e1e;
+  stroke: var(--pink);
+  stroke-opacity: 0.65;
+}
+.nucleus-core {
+  fill: #fff4fa;
+}
+.plot-labels text {
+  font: 9px var(--mono);
+  letter-spacing: 0.1em;
+  fill: #aeb6d4;
+}
+.plot-labels .is-accent {
+  fill: var(--pink);
+}
+.orbital-compact .plot-labels text {
+  font-size: 11px;
+}
+.orbital-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+/* ---------- particles (shared) ---------- */
+.v-particle-core {
+  fill: var(--node);
+}
+.v-particle-halo {
+  fill: var(--node);
+  opacity: 0.12;
+}
+.tone-accent .v-particle-core,
+.tone-accent .v-particle-halo {
+  fill: var(--pink);
+}
+.tone-accent .v-particle-halo {
+  opacity: 0.2;
+}
+.tone-blue .v-particle-core,
+.tone-blue .v-particle-halo {
+  fill: var(--blue);
+}
+
+/* ---------- technical frame ---------- */
+.vframe {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 60% 45%, #62294826, transparent 62%),
+    linear-gradient(160deg, #111a31 0%, #0a1122 100%);
+  transition:
+    border-color 0.4s,
+    transform 0.6s var(--ease),
+    box-shadow 0.6s;
+}
+.vframe-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(#9fb4e80d 1px, transparent 1px),
+    linear-gradient(90deg, #9fb4e80d 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse at 78% 22%, #000 0%, transparent 45%);
+  mask-image: radial-gradient(ellipse at 78% 22%, #000 0%, transparent 45%);
+}
+.vframe-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: #efa1c580;
+  border-style: solid;
+  border-width: 0;
+  z-index: 2;
+}
+.c-tl {
+  left: 8px;
+  top: 8px;
+  border-left-width: 1px;
+  border-top-width: 1px;
+}
+.c-tr {
+  right: 8px;
+  top: 8px;
+  border-right-width: 1px;
+  border-top-width: 1px;
+}
+.c-bl {
+  left: 8px;
+  bottom: 8px;
+  border-left-width: 1px;
+  border-bottom-width: 1px;
+}
+.c-br {
+  right: 8px;
+  bottom: 8px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+}
+.vframe-label {
+  position: absolute;
+  z-index: 2;
+  font: 8.5px/1 var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.l-tl {
+  left: 24px;
+  top: 13px;
+  color: var(--pink);
+}
+.l-tr {
+  right: 24px;
+  top: 13px;
+}
+.l-bl {
+  left: 24px;
+  bottom: 13px;
+}
+.vframe-body {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 400 / 260;
+  padding: 30px 18px 28px;
+}
+.vframe-wide .vframe-body {
+  aspect-ratio: 700 / 340;
+  padding: 34px 26px 30px;
+}
+.vframe-project.is-detail .vframe-body {
+  aspect-ratio: 16 / 7;
+  padding: 38px 30px 32px;
+}
+.vframe-small .vframe-body {
+  aspect-ratio: 400 / 240;
+}
+.v-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* ---------- SVG vocabulary ---------- */
+.v-line {
+  fill: none;
+  stroke: #c9d3f5;
+  stroke-opacity: 0.45;
+  stroke-width: 1;
+}
+.v-faint {
+  fill: none;
+  stroke: #c9d3f5;
+  stroke-opacity: 0.16;
+  stroke-width: 1;
+}
+.is-dashed {
+  stroke-dasharray: 3 5;
+}
+.v-reach {
+  fill: var(--pink);
+  fill-opacity: 0.025;
+  stroke: var(--pink);
+  stroke-opacity: 0.2;
+  stroke-dasharray: 2 4;
+}
+.v-node {
+  fill: var(--node);
+}
+.v-node-box {
+  fill: none;
+  stroke: #c9d3f5;
+  stroke-opacity: 0.55;
+}
+.v-accent-fill {
+  fill: var(--pink);
+}
+.v-accent-line {
+  fill: none;
+  stroke: var(--pink);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+}
+.v-base {
+  fill: #0b1224;
+  stroke: #c9d3f5;
+  stroke-opacity: 0.55;
+}
+.v-link {
+  fill: none;
+  stroke: #dfe5fb;
+  stroke-opacity: 0.8;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.v-link.is-thin {
+  stroke-width: 1.5;
+}
+.v-trace {
+  fill: none;
+  stroke: var(--pink);
+  stroke-width: 1.2;
+  stroke-dasharray: 2 5;
+  stroke-linecap: round;
+  animation: dash-flow 3s linear infinite;
+}
+.v-pulse {
+  fill: none;
+  stroke: var(--pink);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulse 3.6s ease-out infinite;
+}
+.v-sway,
+.v-steer,
+.v-spin {
+  transform-box: view-box;
+  transform-origin: 0 0;
+}
+.v-sway {
+  animation: sway 13s ease-in-out infinite alternate;
+}
+.v-sway.is-reverse {
+  animation-direction: alternate-reverse;
+}
+.v-steer {
+  animation: steer 7s ease-in-out infinite alternate;
+}
+.v-spin {
+  animation: spin 26s linear infinite;
+}
+.v-spin.is-slow {
+  animation-duration: 12s;
+}
+.v-spin.is-gear {
+  animation-duration: 60s;
+}
+.v-spin.is-gear.is-reverse {
+  animation-duration: 33s;
+  animation-direction: reverse;
+}
+.v-dot {
+  fill: #c9d3f5;
+  fill-opacity: 0.35;
+}
+.v-hatch {
+  stroke: #c9d3f5;
+  stroke-opacity: 0.2;
+}
+.v-obstacle {
+  stroke: #c9d3f5;
+  stroke-opacity: 0.25;
+}
+.v-candidate {
+  fill: none;
+  stroke: #c9d3f5;
+  stroke-opacity: 0.24;
+  stroke-dasharray: 3 4;
+  stroke-linejoin: round;
+}
+.v-selected {
+  fill: none;
+  stroke: var(--pink);
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.v-selected-glow {
+  fill: none;
+  stroke: var(--pink);
+  stroke-opacity: 0.1;
+  stroke-width: 7;
+  stroke-linejoin: round;
+}
+.v-waypoint {
+  fill: #0b1224;
+  stroke: var(--pink);
+}
+.v-wheel {
+  fill: #1a2442;
+  stroke: #dfe5fb;
+  stroke-opacity: 0.8;
+}
+.v-field {
+  fill: none;
+  stroke: var(--blue);
+  stroke-opacity: 0.26;
+  stroke-dasharray: 1 5;
+  stroke-linecap: round;
+}
+.v-wave {
+  fill: none;
+  stroke: var(--blue);
+  stroke-opacity: 0.55;
+  stroke-width: 1.1;
+}
+.v-wave.is-accent {
+  stroke: var(--pink);
+  stroke-opacity: 0.8;
+}
+.v-wave.is-faint {
+  stroke-opacity: 0.25;
+}
+.v-wave-track {
+  animation: wave-track 3.2s linear infinite;
+}
+.v-signal .v-wave-track {
+  animation: wave-track-long 9s linear infinite;
+}
+.v-region {
+  fill: var(--blue);
+  fill-opacity: 0.035;
+}
+.v-membrane {
+  fill: none;
+  stroke: var(--pink);
+  stroke-opacity: 0.75;
+  stroke-width: 1.4;
+  stroke-dasharray: 30 6;
+}
+.v-membrane.is-inner {
+  stroke-opacity: 0.35;
+}
+.v-labels text {
+  font: 8px var(--mono);
+  letter-spacing: 0.08em;
+  fill: #9aa3c4;
+}
+.v-labels .is-accent {
+  fill: var(--pink);
+}
+.v-labels.is-large text {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+.v-pipe {
+  fill: none;
+  stroke-width: 3;
+  stroke-opacity: 0.35;
+  stroke-linejoin: round;
+}
+.v-pipe.is-cold {
+  stroke: var(--blue);
+}
+.v-pipe.is-manifold {
+  stroke: #c9d3f5;
+  stroke-opacity: 0.3;
+}
+.v-flowline {
+  fill: none;
+  stroke-width: 1.2;
+  stroke-dasharray: 3 9;
+  stroke-linecap: round;
+  animation: dash-flow 2.4s linear infinite;
+}
+.v-flowline.is-hot {
+  stroke: var(--pink-light);
+}
+.v-flowline.is-cold {
+  stroke: #dfe5fb;
+  stroke-opacity: 0.7;
+}
+.v-core-glow {
+  fill: var(--pink);
+  fill-opacity: 0.16;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: breathe 5s ease-in-out infinite;
+}
+.v-rod {
+  fill: var(--pink);
+  fill-opacity: 0.75;
+}
+.v-machine {
+  fill: #121b33;
+  stroke: #dfe5fb;
+  stroke-opacity: 0.7;
+}
+.v-machine.is-alt {
+  stroke-dasharray: 3 3;
+}
+.v-shaft {
+  stroke: #dfe5fb;
+  stroke-opacity: 0.45;
+  stroke-width: 2;
+  stroke-dasharray: 6 3;
+}
+.v-panel {
+  fill: var(--blue);
+  fill-opacity: 0.06;
+  stroke: #c9d3f5;
+  stroke-opacity: 0.5;
+}
+.v-fin path {
+  stroke: #c9d3f5;
+  stroke-opacity: 0.22;
+}
+.v-heat {
+  fill: none;
+  stroke: var(--pink);
+  stroke-width: 1.2;
+  opacity: 0;
+  animation: heat 3.6s ease-out infinite;
+}
+.v-planet {
+  fill: #111a33;
+  stroke: #c9d3f5;
+  stroke-opacity: 0.5;
+}
+.v-ring {
+  fill: none;
+  stroke: var(--pink);
+  stroke-width: 0.8;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ring 6s ease-out infinite;
+}
+.v-link-signal {
+  fill: none;
+  stroke: var(--pink);
+  stroke-opacity: 0.55;
+  stroke-dasharray: 4 6;
+  animation: dash-flow 2.8s linear infinite;
+}
+.v-receiver {
+  animation: blink 6s ease-in-out infinite;
+}
+.v-receiver:nth-child(odd) {
+  animation-delay: 1.5s;
+}
+
+/* ---------- section explorer ---------- */
+.explorer {
+  position: relative;
+  height: clamp(560px, 52vw, 680px);
+}
+.explorer-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.explorer-orbit {
+  fill: none;
+  stroke: #c9d3f5;
+  stroke-opacity: 0.18;
+  vector-effect: non-scaling-stroke;
+}
+.explorer-orbit.is-inner {
+  stroke-dasharray: 3 6;
+  stroke-opacity: 0.14;
+}
+.explorer-orbit.is-outer {
+  stroke-opacity: 0.06;
+}
+.explorer-path {
+  fill: none;
+  stroke: #c9d3f5;
+  stroke-opacity: 0.2;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  transition:
+    opacity 1.2s var(--ease) var(--d, 0s),
+    stroke 0.3s,
+    stroke-opacity 0.3s,
+    stroke-width 0.3s;
+}
+/* non-scaling strokes ignore pathLength, so trajectories fade in instead of drawing */
+.will-reveal .explorer-path {
+  opacity: 0;
+}
+.will-reveal.revealed .explorer-path {
+  opacity: 1;
+}
+.explorer.has-active .explorer-path {
+  stroke-opacity: 0.08;
+}
+.explorer .explorer-path.is-active {
+  stroke: var(--pink);
+  stroke-opacity: 1;
+  stroke-width: 1.6;
+}
+.explorer-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /* anchor on the core (58px tall), where every trajectory starts */
+  transform: translate(-50%, -29px);
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  pointer-events: none;
+}
+.explorer-core {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  margin-bottom: 10px;
+  border: 1px solid #efa1c599;
+  border-radius: 50%;
+  background: radial-gradient(circle, #efa1c540, transparent 65%);
+}
+.explorer-core::before {
+  content: "";
+  position: absolute;
+  inset: 22px;
+  border-radius: 50%;
+  background: #fff4fa;
+  box-shadow: 0 0 14px #efa1c5;
+}
+.explorer-core::after {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1px dashed #c9d3f540;
+  animation: spin 40s linear infinite;
+}
+.explorer-center strong {
+  font:
+    italic 400 30px/1.1 var(--serif);
+  color: var(--pink);
+}
+.explorer-center-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+  min-height: 3.1em;
+}
+.explorer-nodes {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* `translate` (not `transform`) so the stagger reveal can animate transform freely */
+.explorer-nodes li {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  translate: -50% -8px;
+  width: 170px;
+}
+.explorer-nodes a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  padding: 0 6px 6px;
+  border-radius: 3px;
+}
+.explorer-dot {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid #dfe5fbaa;
+  background: var(--background);
+  transition:
+    transform 0.4s var(--ease),
+    border-color 0.3s,
+    box-shadow 0.4s;
+}
+.explorer-dot::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: var(--node);
+  transition: background 0.3s;
+}
+.explorer-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.explorer-label {
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  transition: color 0.3s;
+}
+.explorer-desc {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.explorer-arrow {
+  position: absolute;
+  right: 18px;
+  top: 34px;
+  color: var(--pink);
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition:
+    opacity 0.3s,
+    transform 0.3s var(--ease);
+}
+.explorer-nodes a:hover .explorer-dot,
+.explorer-nodes a.is-active .explorer-dot {
+  transform: scale(1.35);
+  border-color: var(--pink);
+  box-shadow: 0 0 0 6px #efa1c514, 0 0 18px #efa1c566;
+}
+.explorer-nodes a:hover .explorer-dot::after,
+.explorer-nodes a.is-active .explorer-dot::after {
+  background: var(--pink);
+}
+.explorer-nodes a:hover .explorer-label,
+.explorer-nodes a.is-active .explorer-label {
+  color: var(--pink);
+}
+.explorer-nodes a:hover .explorer-arrow,
+.explorer-nodes a.is-active .explorer-arrow {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 900px) {
+  .vframe-project.is-detail .vframe-body {
+    aspect-ratio: 400 / 260;
+    padding: 30px 16px 28px;
+  }
+}
+@media (max-width: 760px) {
+  .orbital-layer {
+    transform: none;
+  }
+  .plot-labels text {
+    font-size: 14px;
+  }
+  .plot-labels text:nth-child(n + 5):not(.is-accent) {
+    display: none;
+  }
+  .v-labels text {
+    font-size: 10px;
+  }
+  .v-labels.is-large text {
+    font-size: 15px;
+  }
+  .vframe-label {
+    font-size: 7.5px;
+  }
+  .vframe-wide .vframe-body {
+    aspect-ratio: 700 / 380;
+    padding: 30px 8px 24px;
+  }
+
+  /* explorer → vertical mission path */
+  .explorer {
+    height: auto;
+  }
+  .explorer-map,
+  .explorer-center {
+    display: none;
+  }
+  .explorer-nodes {
+    position: relative;
+  }
+  .explorer-nodes::before {
+    content: "";
+    position: absolute;
+    left: 7.5px;
+    top: 24px;
+    bottom: 24px;
+    width: 1px;
+    background: linear-gradient(180deg, var(--pink), var(--line) 30%, var(--line) 80%, transparent);
+  }
+  .explorer-nodes {
+    height: auto;
+  }
+  .explorer-nodes li {
+    position: relative;
+    left: auto;
+    top: auto;
+    translate: none;
+    width: auto;
+  }
+  .explorer-nodes a {
+    display: grid;
+    grid-template-columns: 16px 1fr 16px;
+    align-items: center;
+    gap: 18px;
+    text-align: left;
+    padding: 16px 0;
+  }
+  .explorer-nodes li + li a {
+    border-top: 1px solid #29314999;
+  }
+  .explorer-text {
+    align-items: flex-start;
+  }
+  .explorer-desc {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .explorer-arrow {
+    position: static;
+    opacity: 0.6;
+    transform: none;
+  }
+}

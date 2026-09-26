@@ -7,3 +7,9 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## Project rules
+
+- `content/site.json` is the single source of truth for all site content. Never invent facts, numbers, dates, awards or links.
+- Values starting with `TODO` are missing content: hide them on the page (never render the word "TODO"), and don't show "coming soon" / "content pending" / "a space for…" copy when real data exists.
+- Keep the current blue + pink visual identity (colors, fonts, orbital illustrations).

@@ -1,0 +1,435 @@
+{
+  "_meta": {
+    "description": "Single source of truth for all portfolio content.",
+    "conventions": [
+      "A string starting with \"TODO:\" is missing content. The site must hide it and never render the word TODO.",
+      "An empty array means no entries have been provided yet. The site must hide that block.",
+      "Stats use { value, label } so numbers can be animated; value is kept as a display string (e.g. \"900k+\").",
+      "projectSlugs, experience ids, research ids, competition ids and leadership ids are stable references used across sections.",
+      "The ntp-engine slug is legacy naming: the project is space nuclear POWER research, not a nuclear thermal propulsion engine."
+    ]
+  },
+
+  "profile": {
+    "fullName": "Ana Sofía Chávez Salas",
+    "firstName": "Ana Sofía",
+    "degree": "B.S. Aerospace Engineering",
+    "minor": "Materials Engineering",
+    "university": "University of Cincinnati",
+    "program": "University Honors Program",
+    "graduationYear": "May 2029",
+    "tagline": "I design robots and systems for places people can't go: radioactive hot cells today, deep space next.",
+    "thesis": "I design robots and systems for places people can't go: radioactive hot cells today, deep space next.",
+    "about": [
+      "Ana Sofía Chávez Salas is an Aerospace Engineering student at the University of Cincinnati with a minor in Materials Engineering. Her work sits at the intersection of aerospace systems, nuclear robotics, space nuclear power, and materials research.",
+      "Her engineering interests center on systems designed for extreme environments: robotic systems that operate where people cannot safely go, materials exposed to challenging conditions, and power and propulsion technologies for future space missions.",
+      "Her experiences in nuclear robotics and research led her to become increasingly interested in nuclear engineering and its applications to space exploration."
+    ],
+    "gpa": "3.924",
+    "gpaScale": "4.000",
+    "languages": ["Spanish — Native", "English — C1, TOEFL iBT 100+", "German — A2, Goethe"],
+    "interests": ["Aerospace", "Nuclear robotics", "Space nuclear systems", "Materials research"],
+    "portrait": {
+      "src": "TODO: portrait image path",
+      "alt": "TODO: portrait alt text"
+    }
+  },
+
+  "contact": {
+    "email": "chavezas@mail.uc.edu",
+    "linkedin": "https://www.linkedin.com/in/anachavezsalas",
+    "github": "https://github.com/anitachavez",
+    "resume": "/docs/Ana_Chavez_Salas_Resume.pdf"
+  },
+
+  "categories": ["Aerospace", "Nuclear robotics", "Space nuclear systems", "Materials research"],
+
+  "experience": [
+    {
+      "id": "inl",
+      "organization": "Idaho National Laboratory",
+      "shortName": "INL",
+      "role": "Research & Development Nuclear Robotics Engineer",
+      "location": "Idaho Falls, Idaho",
+      "startDate": "January 2026",
+      "endDate": "Present",
+      "summary": "Developing robotic systems and path-planning methods for remote operations involving radioactive materials in environments where direct human access is not possible.",
+      "bullets": [
+        "Designed a complete hot-cell layout in SolidWorks integrating four UR10 manipulators on custom actuators, extending robotic reach across a workspace inaccessible to personnel.",
+        "Designed a modular, expandable gripper system with seven grippers to date for remote handling of tools and radioactive specimens.",
+        "Prototyped grippers and components using PLA, resin, and metal.",
+        "Built a ROS2 hot-cell environment using MoveIt and RViz.",
+        "Ran 250 trials comparing five ML/AI-based path-planning methods.",
+        "Developing semi-automated path planning for four UR10 arms used in remote mechanical testing of radioactive materials."
+      ],
+      "tags": ["Nuclear robotics", "Robotics", "Path planning", "SolidWorks", "ROS2", "MoveIt", "RViz"],
+      "projectSlugs": ["robotic-hot-cell", "path-planning-testbed"]
+    },
+    {
+      "id": "uc-nano-biomed-lab",
+      "organization": "Nanotechnology & Biomedicine Lab, University of Cincinnati",
+      "shortName": "Nanotechnology & Biomedicine Lab",
+      "role": "Undergraduate Researcher",
+      "location": "Cincinnati, Ohio",
+      "startDate": "May 2026",
+      "endDate": "Present",
+      "summary": "Modeling nanoparticle transport for targeted inner-ear drug delivery using multiphysics simulation.",
+      "bullets": [
+        "Built COMSOL Multiphysics models of nanoparticle transport across the inner-ear membrane for targeted drug delivery.",
+        "Incorporated flow, vibration/acoustics, and electromagnetic effects into the simulation work.",
+        "Conducted parametric studies of vibration and electromagnetic factors affecting predicted delivery efficiency."
+      ],
+      "tags": ["Materials research", "COMSOL Multiphysics", "CFD", "Electromagnetics", "Acoustics", "Nanotechnology"],
+      "projectSlugs": ["inner-ear-delivery"]
+    },
+    {
+      "id": "tutoring",
+      "organization": "University of Cincinnati",
+      "shortName": "Tutoring",
+      "role": "Academic Peer Tutor",
+      "location": "Cincinnati, Ohio",
+      "startDate": "August 2025",
+      "endDate": "Present",
+      "summary": "Provide individualized academic support to university students in STEM courses.",
+      "bullets": ["Tutored 50+ students in STEM courses through individualized academic support."],
+      "tags": [],
+      "projectSlugs": []
+    }
+  ],
+
+  "research": [
+    {
+      "id": "space-nuclear-power",
+      "title": "Component Completeness Sensitivity in Mass Optimization of Integrated Space Nuclear Power Systems",
+      "shortTitle": "Mass Optimization of Space Nuclear Power Systems",
+      "organization": "University of Cincinnati",
+      "context": "Independent undergraduate research with faculty mentorship at the University of Cincinnati.",
+      "category": "Space nuclear systems",
+      "startDate": "August 2026",
+      "endDate": "Present",
+      "summary": "Developing a modular Python thermodynamic model of an integrated nuclear reactor, closed Brayton cycle, and heat-rejection radiator to study how component-scope assumptions affect predicted mass-optimal system designs across power levels.",
+      "researchQuestion": "How does the inclusion or omission of secondary subsystems such as radiation shielding, gas coolers, and turbomachinery mass bias the predicted mass-optimal design point of an integrated reactor–closed Brayton cycle–radiator space power system?",
+      "tools": ["Python", "CoolProp", "Thermodynamic cycle modeling", "Turbomachinery similarity methods"],
+      "advisor": "TODO: faculty mentor name",
+      "publications": [],
+      "projectSlugs": ["ntp-engine"]
+    },
+    {
+      "id": "uc-inner-ear",
+      "title": "Multiphysics Modeling of Nanoparticle Transport for Inner-Ear Drug Delivery",
+      "shortTitle": "Inner-Ear Nanoparticle Transport",
+      "experienceId": "uc-nano-biomed-lab",
+      "organization": "Nanotechnology & Biomedicine Lab, University of Cincinnati",
+      "category": "Materials research",
+      "startDate": "May 2026",
+      "endDate": "Present",
+      "summary": "COMSOL-based multiphysics research investigating nanoparticle transport across the inner-ear membrane for targeted drug delivery.",
+      "tools": ["COMSOL Multiphysics", "CFD", "Vibration/acoustics", "Electromagnetics"],
+      "advisor": "TODO: advisor / mentor",
+      "publications": [],
+      "projectSlugs": ["inner-ear-delivery"]
+    }
+  ],
+
+  "projects": [
+    {
+      "slug": "robotic-hot-cell",
+      "title": "Robotic Hot Cell System",
+      "category": "Nuclear robotics",
+      "organization": "Idaho National Laboratory",
+      "experienceId": "inl",
+      "year": "2026",
+      "role": "Nuclear Robotics Engineer",
+      "featured": true,
+      "summary": "Design and development of a robotic hot-cell system for remotely handling radioactive materials in environments inaccessible to personnel.",
+      "sections": [
+        {
+          "heading": "Problem",
+          "body": [
+            "Hot-cell environments require remote manipulation because direct human access is restricted. Robotic systems must provide sufficient reach, flexibility, and tooling to perform operations on radioactive materials."
+          ]
+        },
+        {
+          "heading": "Approach",
+          "body": [
+            "Developed a complete SolidWorks hot-cell layout integrating four UR10 manipulators with custom actuators and designed a modular gripper architecture that allows the robots to use different tools and handle different specimens."
+          ]
+        },
+        {
+          "heading": "Contribution",
+          "body": [
+            "Designed the hot-cell robotic layout and seven modular gripper designs and supported physical prototyping of components."
+          ]
+        }
+      ],
+      "stats": [
+        { "value": "4", "label": "UR10 robotic arms" },
+        { "value": "7", "label": "modular grippers" }
+      ],
+      "tools": ["SolidWorks", "UR10", "3D printing", "PLA", "Resin", "Metal"],
+      "images": [],
+      "videos": [],
+      "documents": []
+    },
+    {
+      "slug": "path-planning-testbed",
+      "title": "Robotic Path-Planning Testbed",
+      "category": "Nuclear robotics",
+      "organization": "Idaho National Laboratory",
+      "experienceId": "inl",
+      "year": "2026",
+      "role": "Nuclear Robotics Engineer",
+      "featured": true,
+      "summary": "Simulation and evaluation of robotic path-planning approaches for semi-automated remote operations inside a nuclear hot-cell environment.",
+      "sections": [
+        {
+          "heading": "Problem",
+          "body": [
+            "Remote nuclear operations require robots to move safely and reliably through constrained environments while reducing dependence on manual operator control."
+          ]
+        },
+        {
+          "heading": "Approach",
+          "body": [
+            "Built a ROS2 hot-cell simulation environment using MoveIt and RViz and performed 250 trials comparing five ML/AI-based path-planning methods."
+          ]
+        },
+        {
+          "heading": "Contribution",
+          "body": [
+            "Developed the simulation environment, performed the planning trials, and analyzed approaches toward semi-automated operation of four UR10 arms."
+          ]
+        }
+      ],
+      "stats": [
+        { "value": "250", "label": "planning trials" },
+        { "value": "5", "label": "path-planning methods" },
+        { "value": "4", "label": "UR10 robotic arms" }
+      ],
+      "tools": ["ROS2", "MoveIt", "RViz", "UR10", "Python"],
+      "images": [],
+      "videos": [],
+      "documents": []
+    },
+    {
+      "slug": "swerve-drive-climber",
+      "title": "Swerve Drive & Climbing System",
+      "category": "Aerospace",
+      "organization": "FIRST Robotics",
+      "competitionId": "first-robotics",
+      "year": "2021–2024",
+      "role": "Captain, CAD & Programming Lead",
+      "featured": true,
+      "summary": "Mechanical and controls development for a competition robot, including a custom swerve-drive chassis and climbing mechanism.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": [
+            "Designed a custom swerve-drive chassis and a SolidWorks climbing mechanism capable of lifting a 110+ lb competition robot in under 15 seconds. Developed a PID controller in LabVIEW for the robot."
+          ]
+        }
+      ],
+      "stats": [
+        { "value": "50+", "label": "student team" },
+        { "value": "Top 3", "label": "national ranking in Mexico" },
+        { "value": "Qualified", "label": "FIRST Robotics World Championship" },
+        { "value": "110+ lb", "label": "robot lifted by the climber" },
+        { "value": "< 15 s", "label": "climb time" }
+      ],
+      "tools": ["SolidWorks", "LabVIEW", "PID control", "CAD", "Robotics"],
+      "images": [],
+      "videos": [],
+      "documents": []
+    },
+    {
+      "slug": "ntp-engine",
+      "title": "Space Nuclear Power System Mass Optimization",
+      "category": "Space nuclear systems",
+      "organization": "University of Cincinnati",
+      "context": "Independent undergraduate research, University of Cincinnati",
+      "researchId": "space-nuclear-power",
+      "year": "2026",
+      "role": "Undergraduate Researcher",
+      "status": "Ongoing",
+      "featured": false,
+      "summary": "A modular computational model for investigating how subsystem completeness affects mass-optimal designs of space nuclear power systems.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": [
+            "The model integrates a nuclear reactor, closed Brayton-cycle power conversion system, and heat-rejection radiator. The research investigates how including or omitting secondary subsystem masses changes the predicted mass-optimal design and how that sensitivity changes with system power."
+          ]
+        }
+      ],
+      "stats": [],
+      "tools": ["Python", "CoolProp", "Thermodynamics", "Closed Brayton cycle modeling", "Turbomachinery similarity methods"],
+      "images": [],
+      "videos": [],
+      "documents": []
+    },
+    {
+      "slug": "inner-ear-delivery",
+      "title": "Inner-Ear Nanoparticle Delivery Modeling",
+      "category": "Materials research",
+      "organization": "Nanotechnology & Biomedicine Lab, University of Cincinnati",
+      "experienceId": "uc-nano-biomed-lab",
+      "researchId": "uc-inner-ear",
+      "year": "2026",
+      "role": "Undergraduate Researcher",
+      "featured": false,
+      "summary": "Multiphysics modeling of nanoparticle transport across the inner-ear membrane for targeted drug delivery.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": [
+            "Built multiphysics simulations to study how flow, vibration, and electromagnetic effects influence nanoparticle transport and predicted delivery efficiency."
+          ]
+        }
+      ],
+      "stats": [],
+      "tools": ["COMSOL Multiphysics", "CFD", "Vibration/acoustics", "Electromagnetics"],
+      "images": [],
+      "videos": [],
+      "documents": []
+    }
+  ],
+
+  "awards": [
+    {
+      "title": "University of Cincinnati Co-op Student of the Year",
+      "organization": "University of Cincinnati",
+      "date": "2026",
+      "description": "TODO: description"
+    },
+    {
+      "title": "University of Cincinnati Freshman of the Year",
+      "organization": "University of Cincinnati",
+      "date": "2025",
+      "description": "TODO: description"
+    },
+    {
+      "title": "NASA Space Apps Local Impact Award",
+      "organization": "NASA Space Apps",
+      "competitionId": "nasa-space-apps",
+      "date": "2024",
+      "location": "Querétaro, Mexico",
+      "description": "TODO: description"
+    },
+    {
+      "title": "Siemens Hackathon Latin America, 1st Place",
+      "organization": "Siemens Hackathon Latin America",
+      "competitionId": "siemens-hackathon",
+      "date": "2023",
+      "location": "Mexico City, Mexico",
+      "description": "TODO: description"
+    },
+    {
+      "title": "FIRST Robotics Dean's List Finalist",
+      "organization": "FIRST Robotics",
+      "competitionId": "first-robotics",
+      "date": "2023",
+      "location": "Houston, Texas",
+      "description": "TODO: description"
+    },
+    {
+      "title": "FIRST Robotics programming award",
+      "officialTitle": "TODO: official award title",
+      "organization": "FIRST Robotics",
+      "competitionId": "first-robotics",
+      "date": "TODO: date",
+      "location": "Mexico",
+      "description": "TODO: description"
+    }
+  ],
+
+  "competitions": [
+    {
+      "id": "first-robotics",
+      "name": "FIRST Robotics",
+      "role": "Captain, CAD & Programming Lead",
+      "team": "TODO: team name / number",
+      "dates": "August 2021 – August 2024",
+      "location": "TODO: location",
+      "summary": "Led engineering and programming work for a 50+ student FIRST Robotics team.",
+      "results": [
+        "Top 3 national ranking in Mexico",
+        "Qualified for FIRST Robotics World Championship",
+        "National recognition for programming"
+      ],
+      "highlights": ["Swerve drive + climber"],
+      "projectSlugs": ["swerve-drive-climber"]
+    },
+    {
+      "id": "nasa-space-apps",
+      "name": "NASA Space Apps",
+      "role": "TODO: role",
+      "team": "TODO: team name",
+      "dates": "2024",
+      "location": "Querétaro, Mexico",
+      "summary": "TODO: summary",
+      "results": ["Local Impact Award"],
+      "highlights": [],
+      "projectSlugs": []
+    },
+    {
+      "id": "siemens-hackathon",
+      "name": "Siemens Hackathon Latin America",
+      "role": "TODO: role",
+      "team": "TODO: team name",
+      "dates": "2023",
+      "location": "Mexico City, Mexico",
+      "summary": "TODO: summary",
+      "results": ["1st Place"],
+      "highlights": [],
+      "projectSlugs": []
+    }
+  ],
+
+  "leadership": [
+    {
+      "id": "shetalks",
+      "organization": "SheTalks",
+      "role": "Founder & Host",
+      "dates": "January 2025 – Present",
+      "summary": "Founded a STEM-focused podcast with reported reach of 900k+ and appeared five times on national television in Mexico.",
+      "stats": [
+        { "value": "900k+", "label": "reach" },
+        { "value": "5", "label": "national television appearances" }
+      ],
+      "bullets": []
+    },
+    {
+      "id": "first-captain",
+      "organization": "FIRST Robotics",
+      "role": "Captain, CAD & Programming Lead",
+      "dates": "August 2021 – August 2024",
+      "summary": "Led a 50+ student robotics team and engineering work spanning CAD, mechanical design, controls, and programming.",
+      "stats": [],
+      "bullets": []
+    },
+    {
+      "id": "swe-vp",
+      "organization": "Society of Women Engineers",
+      "chapter": "University of Cincinnati",
+      "role": "Vice President Internal",
+      "dates": "2026 – Present",
+      "summary": "Lead internal chapter operations and mentor-mentee programming.",
+      "stats": [],
+      "bullets": []
+    }
+  ],
+
+  "media": {
+    "headline": "Featured 5 times on national television in Mexico",
+    "items": [],
+    "itemsNote": "TODO: media clips and links"
+  },
+
+  "homepageStats": [
+    { "value": "4", "label": "UR10 arms", "source": "projects.robotic-hot-cell" },
+    { "value": "7", "label": "modular grippers", "source": "projects.robotic-hot-cell" },
+    { "value": "250", "label": "planning trials", "source": "projects.path-planning-testbed" },
+    { "value": "900k+", "label": "reach", "source": "leadership.shetalks" },
+    { "value": "5", "label": "national television appearances", "source": "leadership.shetalks" }
+  ]
+}

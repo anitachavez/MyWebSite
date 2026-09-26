@@ -1,0 +1,241 @@
+/* ---------- reveal system ----------
+   MotionController adds .will-reveal to [data-reveal] (only with JS and motion
+   allowed), then .revealed as each element enters the viewport.
+   - .reveal-late children follow the element (body after heading)
+   - [data-stagger] children appear in sequence
+   - .v-draw / .explorer-path strokes draw in */
+.will-reveal {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition:
+    opacity 0.8s var(--ease),
+    transform 0.9s var(--ease);
+}
+.will-reveal.revealed {
+  opacity: 1;
+  transform: none;
+}
+.will-reveal .reveal-late {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  transition:
+    opacity 0.8s var(--ease) 0.18s,
+    transform 0.9s var(--ease) 0.18s;
+}
+.will-reveal.revealed .reveal-late {
+  opacity: 1;
+  transform: none;
+}
+.will-reveal[data-stagger] > *,
+.will-reveal [data-stagger] > * {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.8s var(--ease);
+}
+.will-reveal.revealed[data-stagger] > *,
+.will-reveal.revealed [data-stagger] > * {
+  opacity: 1;
+  transform: none;
+}
+[data-stagger] > :nth-child(1) { transition-delay: 0.1s !important; }
+[data-stagger] > :nth-child(2) { transition-delay: 0.18s !important; }
+[data-stagger] > :nth-child(3) { transition-delay: 0.26s !important; }
+[data-stagger] > :nth-child(4) { transition-delay: 0.34s !important; }
+[data-stagger] > :nth-child(5) { transition-delay: 0.42s !important; }
+[data-stagger] > :nth-child(6) { transition-delay: 0.5s !important; }
+[data-stagger] > :nth-child(7) { transition-delay: 0.58s !important; }
+[data-stagger] > :nth-child(8) { transition-delay: 0.66s !important; }
+[data-stagger] > :nth-child(n + 9) { transition-delay: 0.72s !important; }
+.revealed [data-stagger] > *:hover {
+  transition-delay: 0s !important;
+}
+.will-reveal .v-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 2.4s var(--ease) 0.4s;
+}
+.will-reveal.revealed .v-draw {
+  stroke-dashoffset: 0;
+}
+
+/* ---------- keyframes ---------- */
+@keyframes precess {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes trail {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+@keyframes sway {
+  from {
+    transform: rotate(-12deg);
+  }
+  to {
+    transform: rotate(14deg);
+  }
+}
+@keyframes steer {
+  from {
+    transform: rotate(-38deg);
+  }
+  to {
+    transform: rotate(38deg);
+  }
+}
+@keyframes pulse {
+  from {
+    transform: scale(0.55);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+@keyframes ring {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale(0.94);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+@keyframes wave-track {
+  to {
+    transform: translateX(-40px);
+  }
+}
+@keyframes wave-track-long {
+  to {
+    transform: translateX(-120px);
+  }
+}
+@keyframes heat {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  30% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+}
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes scan {
+  from {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(420px);
+    opacity: 0;
+  }
+}
+@keyframes live {
+  0% {
+    box-shadow: 0 0 0 0 #efa1c580;
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 8px #efa1c500;
+  }
+}
+@keyframes scroll-line {
+  to {
+    top: 110%;
+  }
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes word-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.45em, 0);
+  }
+}
+
+/* ---------- reduced motion ----------
+   All CSS motion stops; SMIL particles are paused in place by MotionController;
+   parallax offsets are never set. The composition and all content stay visible. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+  .sci-layer,
+  .orbital-layer {
+    transform: none !important;
+  }
+}

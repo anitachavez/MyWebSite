@@ -39,11 +39,13 @@ export function MediaImage({
           preload={priority}
           onError={() => setFailedSrc(photo.src)}
         />
-      ) : (
+      ) : failedSrc ? (
         <div className="image-placeholder">
-          <ImageIcon size={26} strokeWidth={1} />
-          <span>{failedSrc ? "Image unavailable" : "IMAGE TO COME"}</span>
+          <ImageIcon size={26} strokeWidth={1} aria-hidden="true" />
+          <span>Image unavailable</span>
         </div>
+      ) : (
+        <div className="image-placeholder" aria-hidden="true" />
       )}
     </div>
   );
@@ -60,6 +62,7 @@ export function PdfViewer({
 }) {
   const [open, setOpen] = useState(false);
   const viewerId = useId();
+  if (!src) return null;
   return (
     <section className={`asset-panel ${open ? "asset-open" : ""}`}>
       <div className="asset-heading">
@@ -69,71 +72,60 @@ export function PdfViewer({
         <div>
           <span className="eyebrow">DOCUMENT / PDF</span>
           <h3>{title}</h3>
-          <p>
-            {description ??
-              (src
-                ? "A closer look at the work. Read online or open the original."
-                : "The approved PDF will be added here.")}
-          </p>
+          <p>{description ?? "Read online or open the original."}</p>
         </div>
       </div>
-      {src ? (
-        <>
-          <div className="asset-actions">
-            <button
-              className="button button-small"
-              aria-expanded={open}
-              aria-controls={viewerId}
-              onClick={() => setOpen(!open)}
+      <div className="asset-actions">
+        <button
+          className="button button-small"
+          aria-expanded={open}
+          aria-controls={viewerId}
+          onClick={() => setOpen(!open)}
+        >
+          {open ? "Close viewer" : "Read PDF"}
+          <FileText size={15} />
+        </button>
+        <a
+          className="icon-button"
+          href={src}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Open ${title} PDF in a new tab`}
+        >
+          <ArrowUpRight size={20} />
+        </a>
+        <a
+          className="icon-button"
+          href={src}
+          download
+          aria-label={`Download ${title}`}
+        >
+          <Download size={18} />
+        </a>
+      </div>
+      <div id={viewerId} className="pdf-container" hidden={!open}>
+        {open && (
+          <>
+            <p className="pdf-fallback">
+              If your browser cannot preview this document,{" "}
+              <a href={src} target="_blank" rel="noopener noreferrer">
+                open the original PDF ↗
+              </a>
+              .
+            </p>
+            <object
+              className="pdf-viewer"
+              data={src}
+              type="application/pdf"
+              aria-label={title}
             >
-              {open ? "Close viewer" : "Read PDF"}
-              <FileText size={15} />
-            </button>
-            <a
-              className="icon-button"
-              href={src}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Open ${title} PDF in a new tab`}
-            >
-              <ArrowUpRight size={20} />
-            </a>
-            <a
-              className="icon-button"
-              href={src}
-              download
-              aria-label={`Download ${title}`}
-            >
-              <Download size={18} />
-            </a>
-          </div>
-          <div id={viewerId} className="pdf-container" hidden={!open}>
-            {open && (
-              <>
-                <p className="pdf-fallback">
-                  If your browser cannot preview this document,{" "}
-                  <a href={src} target="_blank" rel="noopener noreferrer">
-                    open the original PDF ↗
-                  </a>
-                  .
-                </p>
-                <object
-                  className="pdf-viewer"
-                  data={src}
-                  type="application/pdf"
-                  aria-label={title}
-                >
-                  <p>
-                    Preview unavailable. <a href={src}>Open the PDF</a>.
-                  </p>
-                </object>
-              </>
-            )}
-          </div>
-        </>
-      ) : (
-        <span className="pending-label">PENDING MATERIAL</span>
-      )}
+              <p>
+                Preview unavailable. <a href={src}>Open the PDF</a>.
+              </p>
+            </object>
+          </>
+        )}
+      </div>
     </section>
   );
 }
@@ -164,16 +156,11 @@ export function VideoPlayer({ video }: { video?: Video }) {
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
   const embed = safeEmbed(video?.embedUrl);
+  if (!video || (!video.src && !embed)) return null;
   return (
-    <figure className="video-block">
+    <figure className={`video-block ${video.orientation === "vertical" ? "is-vertical" : ""}`}>
       <div className="video-stage">
-        {!video || (!video.src && !embed) ? (
-          <div className="video-placeholder">
-            <Play size={28} strokeWidth={1} />
-            <span>{video ? "Video source pending" : "VIDEO TO COME"}</span>
-            <p>Approved footage will appear here.</p>
-          </div>
-        ) : video.src ? (
+        {video.src ? (
           <>
             <video
               controls
@@ -226,7 +213,7 @@ export function VideoPlayer({ video }: { video?: Video }) {
           </button>
         )}
       </div>
-      {video && (
+      {video.title && (
         <figcaption>
           <h3>{video.title}</h3>
           {video.description && <p>{video.description}</p>}
@@ -255,22 +242,7 @@ export function Gallery({
     setIndex(
       (current) => (current + direction + photos.length) % photos.length,
     );
-  if (!photos.length)
-    return (
-      <div className="gallery-placeholder">
-        <div className="gallery-placeholder-art" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-        </div>
-        <div>
-          <p className="eyebrow">VISUAL FIELD NOTES</p>
-          <h3>{title}</h3>
-          <p>Approved photographs and figures to come</p>
-        </div>
-        <ImageIcon size={24} strokeWidth={1} />
-      </div>
-    );
+  if (!photos.length) return null;
   return (
     <>
       <div className="gallery-grid">

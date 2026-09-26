@@ -11,20 +11,25 @@ const routes = [
   "/leadership",
   "/resume",
   "/contact",
-  "/projects/aerospace",
-  "/projects/nuclear-robotics",
-  "/projects/space-nuclear-systems",
-  "/projects/materials-research",
+  "/projects/robotic-hot-cell",
+  "/projects/path-planning-testbed",
+  "/projects/swerve-drive-climber",
+  "/projects/ntp-engine",
+  "/projects/inner-ear-delivery",
 ];
 test("all routes render accessibly without overflow or browser errors", async ({
   page,
 }, info) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
+  // Audit the settled composition, not elements caught mid-fade by the reveal system.
+  await page.emulateMedia({ reducedMotion: "reduce" });
   for (const route of routes) {
     const response = await page.goto(route);
     expect(response?.status(), route).toBe(200);
     await expect(page.locator("h1")).toHaveCount(1);
+    // TODO values in content/site.json must never reach the page.
+    expect(await page.locator("body").innerText(), route).not.toMatch(/TODO/);
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -63,13 +68,15 @@ test("project filters and case-study navigation work", async ({ page }) => {
     page.getByRole("button", { name: "Materials research", exact: true }),
   ).toHaveAttribute("aria-pressed", "true");
   await page.locator(".project-card").click();
-  await expect(page).toHaveURL(/projects\/materials-research/);
+  await expect(page).toHaveURL(/projects\/inner-ear-delivery/);
   await expect(
-    page.getByRole("heading", { name: "Technical binder" }),
+    page.getByRole("heading", { name: "Inner-Ear Nanoparticle Delivery Modeling", level: 1 }),
   ).toBeVisible();
+  // Empty media/document arrays render no media sections at all.
+  await expect(page.locator("#media, #documents")).toHaveCount(0);
   await expect(page.getByRole("button", { name: "Read PDF" })).toHaveCount(0);
   await page.getByRole("link", { name: "All projects", exact: true }).click();
-  await expect(page.locator(".project-card")).toHaveCount(4);
+  await expect(page.locator(".project-card")).toHaveCount(5);
 });
 test("navigation supports keyboard and reduced motion", async ({
   page,
@@ -82,7 +89,7 @@ test("navigation supports keyboard and reduced motion", async ({
   ).toBeFocused();
   expect(
     await page
-      .locator(".satellite")
+      .locator(".orbit-precess")
       .first()
       .evaluate((el) => getComputedStyle(el).animationName),
   ).toBe("none");
@@ -127,7 +134,7 @@ test("compact widths and secondary navigation remain usable", async ({
       "/about",
       "/media",
       "/competitions",
-      "/projects/aerospace",
+      "/projects/ntp-engine",
     ]) {
       await page.goto(route);
       expect(
@@ -158,7 +165,19 @@ test("compact widths and secondary navigation remain usable", async ({
     .filter({ visible: true })
     .click();
   await expect(page).toHaveURL(/\/media$/);
-  await page.goto("/projects/aerospace");
-  await page.getByRole("link", { name: "02 The process" }).click();
-  await expect(page).toHaveURL(/#chapter-1$/);
+  await page.goto("/projects/ntp-engine");
+  await page.getByRole("link", { name: "02 Research question" }).click();
+  await expect(page).toHaveURL(/#question$/);
+});
+
+test("contact shows real channels and copies the email", async ({ page, context, browserName }) => {
+  await page.goto("/contact");
+  await expect(page.getByRole("link", { name: "chavezas@mail.uc.edu" }).first()).toHaveAttribute(
+    "href",
+    "mailto:chavezas@mail.uc.edu",
+  );
+  await expect(page.locator("main a[href^='tel:']")).toHaveCount(0);
+  if (browserName === "chromium") await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.getByRole("button", { name: "Copy email" }).click();
+  await expect(page.getByRole("status")).toContainText("copied");
 });
